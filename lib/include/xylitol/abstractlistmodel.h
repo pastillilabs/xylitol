@@ -6,14 +6,17 @@
 #include <QList>
 #include <QObject>
 #include <QVariantList>
+#include <QtQml/qqmlregistration.h>
 
 namespace Xylitol {
 
 /**
  * @brief The AbstractListModel class
  */
-class XYLITOL_EXPORT AbstractListModel : public QAbstractListModel {
+class XYLITOL_SHARED_EXPORT AbstractListModel : public QAbstractListModel {
     Q_OBJECT
+    QML_ELEMENT
+    QML_UNCREATABLE("Cannot create AbstractListModel instance.")
 
 public:
     explicit AbstractListModel(QObject* parent = nullptr);

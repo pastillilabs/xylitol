@@ -2,8 +2,6 @@
 
 #include <xylitol/templates.h>
 
-#include <QDebug>
-
 StringListModel::StringListModel(QObject* parent)
     : Xylitol::AbstractListModel(parent) {}
 

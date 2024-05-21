@@ -1,6 +1,6 @@
 TARGET = xylitoltests
 
-QT += testlib
+QT += quick testlib
 
 TEMPLATE = app
 

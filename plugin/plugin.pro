@@ -6,7 +6,7 @@ TARGET = $$qtLibraryTarget(xylitolplugin)
 QT += qml quick
 CONFIG += plugin
 
-QML_IMPORT_PATH += $$OUT_PWD/qml
+QML_IMPORT_PATH += $$PWD
 
 INCLUDEPATH += $$PWD/../lib/include
 DEPENDPATH += $$PWD/../lib/include
@@ -53,8 +53,3 @@ win32 {
         LIBS += -L$$OUT_PWD/../lib/release -lxylitol
     }
 }
-
-# Copy qmldir to output directory
-copy_qmldir.files = qmldir
-copy_qmldir.path = $$DESTDIR
-COPIES += copy_qmldir
