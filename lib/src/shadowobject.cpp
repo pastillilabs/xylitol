@@ -1,4 +1,5 @@
 #include "shadowobject.h"
+
 #include "xylitol/abstractlistmodel.h"
 #include "xylitol/templates.h"
 

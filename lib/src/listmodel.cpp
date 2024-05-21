@@ -1,5 +1,5 @@
 #include "xylitol/listmodel.h"
-#include "logging.h"
+#include "xylitol/logging.h"
 #include "xylitol/util.h"
 #include "xylitol/templates.h"
 
@@ -110,7 +110,7 @@ QVariantList ListModel::xylitolToVariantList(int first, int last, const QVariant
             variantList.append(QVariant(values));
         }
         else {
-            qCWarning(xylitol) << "Invalid index" << index << "in range" << first << last;
+            qCWarning(category) << "Invalid index" << index << "in range" << first << last;
         }
     }
 
@@ -145,7 +145,7 @@ void ListModel::xylitolInsert(int first, const QVariantList& variantList, const 
         endInsertRows();
     }
     else {
-        qCWarning(xylitol) << "Invalid range" << first << last;
+        qCWarning(category) << "Invalid range" << first << last;
     }
 }
 
@@ -162,7 +162,7 @@ void ListModel::xylitolRemove(int first, int last) {
         endRemoveRows();
     }
     else {
-        qCWarning(xylitol) << "Invalid range" << first << last;
+        qCWarning(category) << "Invalid range" << first << last;
     }
 }
 
@@ -196,11 +196,11 @@ void ListModel::xylitolMove(int first, int last, int index) {
             endMoveRows();
         }
         else {
-            qCWarning(xylitol) << "Invalid move" << first << last << index;
+            qCWarning(category) << "Invalid move" << first << last << index;
         }
     }
     else {
-        qCWarning(xylitol) << "Invalid range" << first << last << index;
+        qCWarning(category) << "Invalid range" << first << last << index;
     }
 }
 
@@ -217,7 +217,7 @@ void ListModel::xylitolSet(int first, const QVariantList& variantList, const QVa
         emit dataChanged(index(first), index(last), toContainer<QVector<int>>(roles));
     }
     else {
-        qCWarning(xylitol) << "Invalid range" << first << last;
+        qCWarning(category) << "Invalid range" << first << last;
     }
 }
 

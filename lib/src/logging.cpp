@@ -1,3 +1,7 @@
-#include "logging.h"
+#include "xylitol/logging.h"
 
-Q_LOGGING_CATEGORY(xylitol, "xylitol")
+namespace Xylitol {
+
+Q_LOGGING_CATEGORY(category, "com.pastillilabs.xylitol", QtWarningMsg)
+
+} // namespace Xylitol

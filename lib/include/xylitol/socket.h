@@ -4,14 +4,16 @@
 
 #include <QObject>
 #include <QVariantMap>
+#include <QtQml/qqmlregistration.h>
 
 namespace Xylitol {
 
 /**
  * @brief The Socket class
  */
-class XYLITOL_EXPORT Socket : public QObject {
+class XYLITOL_SHARED_EXPORT Socket : public QObject {
     Q_OBJECT
+    QML_ELEMENT
 
 public:
     enum class Action {
@@ -20,6 +22,7 @@ public:
         ActionInvoke,
         ActionUpdate
     };
+    Q_ENUM(Action);
 
 public:
     explicit Socket(QObject* parent = nullptr);

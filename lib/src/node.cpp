@@ -1,7 +1,7 @@
 #include "xylitol/node.h"
+#include "xylitol/logging.h"
 
 #include "conversions.h"
-#include "logging.h"
 #include "shadowobject.h"
 #include "xylitol/abstractlistmodel.h"
 #include "xylitol/util.h"
@@ -36,7 +36,7 @@ QObject* objectAtPath(QObject& root, const QVariantList& path) {
                 object = value.value<QObject*>();
             }
             else {
-                qCDebug(xylitol) << "Path not found:" << path;
+                qCDebug(category) << "Path not found:" << path;
                 object = nullptr;
             }
         }
@@ -51,7 +51,7 @@ QObject* objectAtPath(QObject& root, const QVariantList& path) {
                 object = value.value<QObject*>();
             }
             else {
-                qCDebug(xylitol) << "Path not found:" << path;
+                qCDebug(category) << "Path not found:" << path;
                 object = nullptr;
             }
         }
@@ -69,27 +69,70 @@ void invoke(QObject& root, const QVariantList& path, const QVariantList& variant
         const int index = metaObject->indexOfMethod(signature.toLatin1().constData());
         if(index >= 0) {
             const QMetaMethod metaMethod = metaObject->method(index);
-
-            QVariant gv[10];
-            QGenericArgument ga[10];
+            const QList<QByteArray> parameterTypes = metaMethod.parameterTypes();
 
             const int valueCount = variantList.count();
             if(valueCount == metaMethod.parameterCount()) {
+                QVariant variant[10];
+                QMetaMethodArgument argument[10];
+
                 for(int i = 0; i < valueCount; ++i) {
-                    gv[i] = fromVariant(variantList.at(i), metaMethod.parameterType(i));
-                    ga[i] = QGenericArgument(metaMethod.parameterTypes().at(i).constData(), gv[i].constData());
+                    variant[i] = fromVariant(variantList.at(i), metaMethod.parameterType(i));
+
+                    argument[i].data = variant[i].constData();
+                    argument[i].name = parameterTypes.at(i).constData();
+                    argument[i].metaType = metaMethod.parameterMetaType(i).iface();
+                }
+
+                bool success = true;
+                switch(valueCount) {
+                case 0:
+                    success = metaMethod.invoke(object);
+                    break;
+                case 1:
+                    success = metaMethod.invoke(object, argument[0]);
+                    break;
+                case 2:
+                    success = metaMethod.invoke(object, argument[0], argument[1]);
+                    break;
+                case 3:
+                    success = metaMethod.invoke(object, argument[0], argument[1], argument[2]);
+                    break;
+                case 4:
+                    success = metaMethod.invoke(object, argument[0], argument[1], argument[2], argument[3]);
+                    break;
+                case 5:
+                    success = metaMethod.invoke(object, argument[0], argument[1], argument[2], argument[3], argument[4]);
+                    break;
+                case 6:
+                    success = metaMethod.invoke(object, argument[0], argument[1], argument[2], argument[3], argument[4], argument[5]);
+                    break;
+                case 7:
+                    success = metaMethod.invoke(object, argument[0], argument[1], argument[2], argument[3], argument[4], argument[5], argument[6]);
+                    break;
+                case 8:
+                    success = metaMethod.invoke(object, argument[0], argument[1], argument[2], argument[3], argument[4], argument[5], argument[6], argument[7]);
+                    break;
+                case 9:
+                    success = metaMethod.invoke(object, argument[0], argument[1], argument[2], argument[3], argument[4], argument[5], argument[6], argument[7], argument[8]);
+                    break;
+                case 10:
+                    success = metaMethod.invoke(object, argument[0], argument[1], argument[2], argument[3], argument[4], argument[5], argument[6], argument[7], argument[8], argument[9]);
+                    break;
+                default:
+                    qCWarning(category) << "Unsupported parameter count" << metaMethod.parameterCount();
+                }
+
+                if(!success) {
+                    qCWarning(category) << "Failed to invoke" << signature;
                 }
             }
             else {
-                qCWarning(xylitol) << "Invalid amount of arguments for" << signature;
-            }
-
-            if(!metaMethod.invoke(object, ga[0], ga[1], ga[2], ga[3], ga[4], ga[5], ga[6], ga[7], ga[8], ga[9])) {
-                qCWarning(xylitol) << "Failed to invoke" << signature << gv[0] << gv[1] << gv[2] << gv[3] << gv[4] << gv[5] << gv[6] << gv[7] << gv[8] << gv[9];
+                qCWarning(category) << "Parameter count" << metaMethod.parameterCount() << "does not match";
             }
         }
         else {
-            qCWarning(xylitol) << "Method not found" << signature;
+            qCWarning(category) << "Method not found" << signature;
         }
     }
 }
@@ -123,7 +166,7 @@ void update(QObject& root, const QVariantList& path, const QVariant& variant) {
             }
         }
         else {
-            qCWarning(xylitol) << "Property not found:" << name;
+            qCWarning(category) << "Property not found:" << name;
         }
     }
 }
@@ -301,7 +344,7 @@ void Node::setupConnection(Connection& connection) {
                 update(*mTarget, path, data);
                 break;
             default:
-                qCWarning(xylitol) << "Invalid action";
+                qCWarning(category) << "Invalid action";
                 break;
             }
 
@@ -312,7 +355,7 @@ void Node::setupConnection(Connection& connection) {
             emit activeConnectionChanged(mActiveConnection);
         }
         else {
-            qCWarning(xylitol) << "Target not set";
+            qCWarning(category) << "Target not set";
         }
     });
 }

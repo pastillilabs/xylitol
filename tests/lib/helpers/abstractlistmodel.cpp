@@ -3,8 +3,6 @@
 #include <xylitol/util.h>
 #include <xylitol/templates.h>
 
-#include <QDebug>
-
 namespace {
 
 void fromVariantMap(AbstractListModel::Item& item, const QVariantMap& variantMap, QObject* parent) {

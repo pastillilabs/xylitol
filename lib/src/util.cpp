@@ -1,7 +1,7 @@
 #include "xylitol/util.h"
+#include "xylitol/logging.h"
 
 #include "conversions.h"
-#include "logging.h"
 
 #include <QBuffer>
 #include <QImage>
@@ -52,7 +52,7 @@ bool equals(const void* gadget, const void* other, const QMetaObject& metaObject
         }
     }
     else {
-        qCWarning(xylitol) << "Invalid parameters";
+        qCWarning(category) << "Invalid parameters";
     }
 
     return result;

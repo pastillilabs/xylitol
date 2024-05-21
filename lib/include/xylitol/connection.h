@@ -5,14 +5,17 @@
 
 #include <QObject>
 #include <QVariantList>
+#include <QtQml/qqmlregistration.h>
 
 namespace Xylitol {
 
 /**
  * @brief The Connection class
  */
-class XYLITOL_EXPORT Connection : public QObject {
+class XYLITOL_SHARED_EXPORT Connection : public QObject {
     Q_OBJECT
+    QML_ELEMENT
+    QML_UNCREATABLE("Cannot create Connection instance.")
 
 public:
     explicit Connection(Socket& socket, QObject* parent = nullptr);
@@ -26,7 +29,7 @@ public:
     void setPath(const QVariantList& path);
 
 signals:
-    void actionChanged(Socket::Action& action);
+    void actionChanged(Socket::Action action);
     void pathChanged(const QVariantList& path);
 
 private:

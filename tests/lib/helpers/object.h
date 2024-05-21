@@ -273,6 +273,7 @@ signals:
     void testB(int a, const QString& b);
     void testC(Object::Enum e);
     void testD(const QVariant& variant);
+    void testE(const QString& a, const QString& b, const QJsonObject& d);
 
 private:
     QBitArray mBitArray;

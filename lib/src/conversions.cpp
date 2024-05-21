@@ -1,6 +1,7 @@
 #include "conversions.h"
-#include "logging.h"
+
 #include "xylitol/abstractlistmodel.h"
+#include "xylitol/logging.h"
 #include "xylitol/templates.h"
 
 #include <QBitArray>
@@ -276,7 +277,11 @@ QByteArray variantToByteArray(const QVariant& variant) {
 QColor variantToColor(const QVariant& variant) {
     QColor color;
     if(!variant.isNull()) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        color = QColor::fromString(variant.toString());
+#else
         color.setNamedColor(variant.toString());
+#endif
     }
 
     return color;
@@ -651,7 +656,7 @@ QVariant variantToDefault(const QVariant& variant, int metaTypeId, QObject* pare
 #endif
         else {
             value.clear();
-            qCWarning(xylitol) << Q_FUNC_INFO << "Cannot convert value" << variant << "to type" << metaTypeId;
+            qCWarning(category) << Q_FUNC_INFO << "Cannot convert value" << variant << "to type" << metaTypeId;
         }
     }
 
@@ -688,7 +693,7 @@ void writeGadgetProperty(void* gadget, const QMetaObject& metaObject, const QMet
             metaObject.method(methodIndex).invokeOnGadget(gadget, Q_ARG(QMetaProperty, metaProperty), Q_ARG(QVariant, value));
         }
         else {
-            qCWarning(xylitol) << "Property" << metaProperty.name() << "of" << metaObject.className() << "is not writable";
+            qCWarning(category) << "Property" << metaProperty.name() << "of" << metaObject.className() << "is not writable";
         }
     }
 }
@@ -932,7 +937,7 @@ QVariant fromVariant(QObject* object, const QVariant& variant, int metaTypeId, Q
             if(!object) {
                 object = metaObject->newInstance(Q_ARG(QVariant, variant), Q_ARG(QObject*, parent));
                 if(!object) {
-                    qCWarning(xylitol) << "Unable to create instance of" << metaObject->className();
+                    qCWarning(category) << "Unable to create instance of" << metaObject->className();
                 }
             }
         }
@@ -984,7 +989,7 @@ QVariant fromVariant(QObject* object, const QVariant& variant, int metaTypeId, Q
                     }
                 }
                 else {
-                    qCWarning(xylitol) << "Property not found:" << propertyName;
+                    qCWarning(category) << "Property not found:" << propertyName;
                 }
             }
 
@@ -1099,7 +1104,7 @@ QVariant fromVariant(void* gadget, int metaTypeId, const QVariant& variant) {
         if(!gadget) {
             gadget = QMetaType(metaObjectTypeId).create();
             if(!gadget) {
-                qCWarning(xylitol) << "Unable to create instance of" << metaObject->className();
+                qCWarning(category) << "Unable to create instance of" << metaObject->className();
             }
         }
 
@@ -1127,7 +1132,7 @@ QVariant fromVariant(void* gadget, int metaTypeId, const QVariant& variant) {
                     }
                 }
                 else {
-                    qCWarning(xylitol) << "Property" << propertyName << "not found!";
+                    qCWarning(category) << "Property" << propertyName << "not found!";
                 }
             }
         }
@@ -1182,7 +1187,7 @@ void writeObjectProperty(QObject& object, const QMetaProperty& metaProperty, con
             metaObject->method(writeIndex).invoke(&object, Q_ARG(QMetaProperty, metaProperty), Q_ARG(QVariant, value));
         }
         else {
-            qCWarning(xylitol) << "Property" << metaProperty.name() << "of" << metaObject->className() << "is not writable";
+            qCWarning(category) << "Property" << metaProperty.name() << "of" << metaObject->className() << "is not writable";
         }
     }
 }

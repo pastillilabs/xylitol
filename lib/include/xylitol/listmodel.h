@@ -16,7 +16,7 @@ namespace Xylitol {
 /**
  * @brief The ListModel class
  */
-class XYLITOL_EXPORT ListModel : public AbstractListModel {
+class XYLITOL_SHARED_EXPORT ListModel : public AbstractListModel {
     Q_OBJECT
 
 public:
