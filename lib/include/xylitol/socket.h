@@ -3,6 +3,10 @@
 #include <xylitol/xylitol_global.h>
 
 #include <QObject>
+
+#if(QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+#include <QtQml/qqmlregistration.h>
+#endif
 #include <QVariantMap>
 
 namespace Xylitol {
@@ -12,6 +16,9 @@ namespace Xylitol {
  */
 class XYLITOL_EXPORT Socket : public QObject {
     Q_OBJECT
+#if(QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    QML_ELEMENT
+#endif
 
 public:
     enum class Action {
@@ -20,6 +27,7 @@ public:
         ActionInvoke,
         ActionUpdate
     };
+    Q_ENUM(Action);
 
 public:
     explicit Socket(QObject* parent = nullptr);

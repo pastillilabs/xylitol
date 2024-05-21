@@ -83,7 +83,6 @@ void invoke(QObject& root, const QVariantList& path, const QVariantList& variant
             else {
                 qCWarning(xylitol) << "Invalid amount of arguments for" << signature;
             }
-
             if(!metaMethod.invoke(object, ga[0], ga[1], ga[2], ga[3], ga[4], ga[5], ga[6], ga[7], ga[8], ga[9])) {
                 qCWarning(xylitol) << "Failed to invoke" << signature << gv[0] << gv[1] << gv[2] << gv[3] << gv[4] << gv[5] << gv[6] << gv[7] << gv[8] << gv[9];
             }

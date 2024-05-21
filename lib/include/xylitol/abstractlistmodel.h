@@ -5,6 +5,9 @@
 #include <QAbstractListModel>
 #include <QList>
 #include <QObject>
+#if(QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+#include <QtQml/qqmlregistration.h>
+#endif
 #include <QVariantList>
 
 namespace Xylitol {
@@ -14,6 +17,9 @@ namespace Xylitol {
  */
 class XYLITOL_EXPORT AbstractListModel : public QAbstractListModel {
     Q_OBJECT
+#if(QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    QML_UNCREATABLE("Cannot create AbstractListModel instance.")
+#endif
 
 public:
     explicit AbstractListModel(QObject* parent = nullptr);

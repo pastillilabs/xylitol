@@ -8,7 +8,8 @@
 #include <QDebug>
 #include <qqml.h>
 
-void XylitolPlugin::registerTypes(const char* uri) {
+void XylitolPlugin::registerTypes([[maybe_unused]] const char* uri) {
+#if(QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     qRegisterMetaType<Xylitol::AbstractListModel*>();
 
     // @uri com.pastillilabs.xylitol
@@ -19,4 +20,5 @@ void XylitolPlugin::registerTypes(const char* uri) {
     qmlRegisterType<Xylitol::Socket>(uri, 1, 0, "Socket");
     qmlRegisterUncreatableType<Xylitol::AbstractListModel>(uri, 1, 0, "AbstractListModel", QLatin1String("Cannot create AbstractListModel instance."));
     qmlRegisterUncreatableType<Xylitol::Connection>(uri, 1, 0, "Connection", QLatin1String("Cannot create Connection instance."));
+#endif
 }

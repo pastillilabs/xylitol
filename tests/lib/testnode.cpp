@@ -8,8 +8,6 @@
 
 #include <xylitol/templates.h>
 
-#include <QDebug>
-
 // clazy:excludeall=non-pod-global-static
 
 namespace {
@@ -290,6 +288,12 @@ void TestNode::testSignals() {
     mNodeA->addChildSocket(&socketAB);
 
     QVERIFY(mNodeB->isInitialized());
+
+    QSignalSpy spyB0(&rootB, &RootObject::testEmpty);
+    QSignalSpy spyC0(&rootA, &RootObject::testEmpty);
+    emit rootA.testEmpty();
+    QVERIFY(!spyB0.isEmpty());
+    QVERIFY(!spyC0.isEmpty());
 
     QSignalSpy spyB1(&rootB, &RootObject::testGadget);
     QSignalSpy spyC1(&rootA, &RootObject::testGadget);

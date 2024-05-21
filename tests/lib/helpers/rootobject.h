@@ -34,6 +34,7 @@ signals:
     void gadgetPtrChanged(Gadget* gadgetPtr);
 
     // Non-property signals
+    void testEmpty();
     void testGadget(const Gadget& gadget);
 
 private:

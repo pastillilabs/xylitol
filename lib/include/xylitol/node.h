@@ -6,6 +6,9 @@
 
 #include <QAbstractListModel>
 #include <QObject>
+#if(QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+#include <QtQml/qqmlregistration.h>
+#endif
 #include <QVariant>
 #include <QVariantList>
 #include <QVector>
@@ -19,10 +22,11 @@ class ShadowObject;
  */
 class XYLITOL_EXPORT Node : public QAbstractListModel {
     Q_OBJECT
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    Q_PROPERTY(QObject* target READ target WRITE setTarget NOTIFY targetChanged)
-#else
+#if(QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    QML_ELEMENT
     Q_PROPERTY(QObject* target READ target WRITE setTarget NOTIFY targetChanged REQUIRED)
+#else
+    Q_PROPERTY(QObject* target READ target WRITE setTarget NOTIFY targetChanged)
 #endif
     Q_PROPERTY(bool initialized READ isInitialized NOTIFY initializedChanged)
     Q_PROPERTY(Connection* parentConnection READ parentConnection NOTIFY parentConnectionChanged)

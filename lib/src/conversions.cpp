@@ -1,4 +1,5 @@
 #include "conversions.h"
+
 #include "logging.h"
 #include "xylitol/abstractlistmodel.h"
 #include "xylitol/templates.h"
@@ -276,7 +277,11 @@ QByteArray variantToByteArray(const QVariant& variant) {
 QColor variantToColor(const QVariant& variant) {
     QColor color;
     if(!variant.isNull()) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        color = QColor::fromString(variant.toString());
+#else
         color.setNamedColor(variant.toString());
+#endif
     }
 
     return color;

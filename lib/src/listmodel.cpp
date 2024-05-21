@@ -1,4 +1,5 @@
 #include "xylitol/listmodel.h"
+
 #include "logging.h"
 #include "xylitol/util.h"
 #include "xylitol/templates.h"
