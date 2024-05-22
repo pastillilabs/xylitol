@@ -77,7 +77,7 @@ void invoke(QObject& root, const QVariantList& path, const QVariantList& variant
             if(valueCount == metaMethod.parameterCount()) {
                 for(int i = 0; i < valueCount; ++i) {
                     gv[i] = fromVariant(variantList.at(i), metaMethod.parameterType(i));
-                    ga[i] = QGenericArgument(metaMethod.parameterTypes().at(i), gv[i].constData());
+                    ga[i] = QGenericArgument(metaMethod.parameterTypes().at(i).constData(), gv[i].constData());
                 }
             }
             else {
