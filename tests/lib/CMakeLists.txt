@@ -20,11 +20,6 @@ target_link_libraries(${PROJECT_NAME}
         xylitol
 )
 
-target_include_directories(${PROJECT_NAME}
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/helpsers
-)
-
 add_test(
     NAME
         ${PROJECT_NAME}
