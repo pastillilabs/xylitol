@@ -194,16 +194,19 @@ bool accept(Connection* connection, Socket::Action action, const QVariantList& p
 
 Node::Node(QObject* parent)
     : QAbstractListModel(parent) {
-    connect(this, &Node::targetChanged, this, [this](QObject* target) {
-        delete mTargetShadow;
-        mTargetShadow = nullptr;
+    connect(this, &Node::targetChanged,
+            this, [this](QObject* target) {
+                delete mTargetShadow;
+                mTargetShadow = nullptr;
 
-        if(target) {
-            mTargetShadow = new ShadowObject(*mTarget, this);
-            connect(mTargetShadow, &ShadowObject::invoked, this, &Node::invoked);
-            connect(mTargetShadow, &ShadowObject::updated, this, &Node::updated);
-        }
-    });
+                if(target) {
+                    mTargetShadow = new ShadowObject(*mTarget, this);
+                    connect(mTargetShadow, &ShadowObject::invoked,
+                            this, &Node::invoked);
+                    connect(mTargetShadow, &ShadowObject::updated,
+                            this, &Node::updated);
+                }
+            });
 }
 
 QObject* Node::target() const {
@@ -313,51 +316,52 @@ void Node::setInitialized(bool initialized) {
 }
 
 void Node::setupConnection(Connection& connection) {
-    connect(&connection.socket(), &Socket::receive, this, [this, &connection](Socket::Action action, const QVariantList& path, const QVariant& data) {
-        // Forward to all other connections first
-        sendAll(action, path, data, &connection);
+    connect(&connection.socket(), &Socket::receive,
+            this, [this, &connection](Socket::Action action, const QVariantList& path, const QVariant& data) {
+                // Forward to all other connections first
+                sendAll(action, path, data, &connection);
 
-        if(mTarget) {
-            // Set active connection and store path & action to it
-            mActiveConnection = &connection;
-            mActiveConnection->setAction(action);
-            mActiveConnection->setPath(path);
+                if(mTarget) {
+                    // Set active connection and store path & action to it
+                    mActiveConnection = &connection;
+                    mActiveConnection->setAction(action);
+                    mActiveConnection->setPath(path);
 
-            emit activeConnectionChanged(mActiveConnection);
+                    emit activeConnectionChanged(mActiveConnection);
 
-            // Handle action
-            switch(action) {
-            case Socket::Action::ActionInitialize:
-                fromVariant(*mTarget, data);
+                    // Handle action
+                    switch(action) {
+                    case Socket::Action::ActionInitialize:
+                        fromVariant(*mTarget, data);
 
-                // Clear active action & path before indicating initialized state.
-                // Allows communication right after intialized signal.
-                mActiveConnection->setAction(Socket::Action::ActionNone);
-                mActiveConnection->setPath({});
+                        // Clear active action & path before indicating initialized state.
+                        // Allows communication right after intialized signal.
+                        mActiveConnection->setAction(Socket::Action::ActionNone);
+                        mActiveConnection->setPath({});
 
-                setInitialized(mTarget != nullptr);
-                break;
-            case Socket::Action::ActionInvoke:
-                invoke(*mTarget, path, data.toList());
-                break;
-            case Socket::Action::ActionUpdate:
-                update(*mTarget, path, data);
-                break;
-            default:
-                qCWarning(category) << "Invalid action";
-                break;
-            }
+                        setInitialized(mTarget != nullptr);
+                        break;
+                    case Socket::Action::ActionInvoke:
+                        invoke(*mTarget, path, data.toList());
+                        break;
+                    case Socket::Action::ActionUpdate:
+                        update(*mTarget, path, data);
+                        break;
+                    default:
+                        qCWarning(category) << "Invalid action";
+                        break;
+                    }
 
-            // Clear active action, path & connection when done
-            mActiveConnection->setAction(Socket::Action::ActionNone);
-            mActiveConnection->setPath({});
-            mActiveConnection = nullptr;
-            emit activeConnectionChanged(mActiveConnection);
-        }
-        else {
-            qCWarning(category) << "Target not set";
-        }
-    });
+                    // Clear active action, path & connection when done
+                    mActiveConnection->setAction(Socket::Action::ActionNone);
+                    mActiveConnection->setPath({});
+                    mActiveConnection = nullptr;
+                    emit activeConnectionChanged(mActiveConnection);
+                }
+                else {
+                    qCWarning(category) << "Target not set";
+                }
+            });
 }
 
 void Node::sendAll(Socket::Action action, const QVariantList& path, const QVariant& data, Connection* source) {

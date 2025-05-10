@@ -54,7 +54,8 @@ ShadowObject::ShadowObject(const QObject& target, QObject* parent)
 
         if(metaProperty.hasNotifySignal()) {
             if(metaProperty.isStored()) {
-                connect(&target, metaProperty.notifySignal(), this, QMetaMethod::fromSignal(&ShadowObjectBase::propertySink));
+                connect(&target, metaProperty.notifySignal(),
+                        this, QMetaMethod::fromSignal(&ShadowObjectBase::propertySink));
             }
 
             mPropertyMap.insert(metaProperty.notifySignalIndex(), metaProperty);
@@ -75,7 +76,8 @@ ShadowObject::ShadowObject(const QObject& target, QObject* parent)
         const QMetaMethod metaMethod = metaObject->method(i);
 
         if(metaMethod.methodType() == QMetaMethod::Signal && !propertySignals.contains(i)) {
-            connect(&target, metaMethod, this, QMetaMethod::fromSignal(&ShadowObjectBase::signalSink));
+            connect(&target, metaMethod,
+                    this, QMetaMethod::fromSignal(&ShadowObjectBase::signalSink));
         }
     }
 }
@@ -141,39 +143,44 @@ void ShadowObject::connectModel(const AbstractListModel& abstractListModel) {
     const QHash<int, QByteArray> roleNames = abstractListModel.roleNames();
     const QVariantList roles = toVariantList(roleNames.keys());
 
-    connect(&abstractListModel, &AbstractListModel::rowsInserted, this, [this, &abstractListModel, roles](const QModelIndex& /*parent*/, int first, int last) {
-        const QVariantList values{first, abstractListModel.xylitolToVariantList(first, last, roles), QVariant::fromValue(roles)};
-        emit invoked(insertPath, values);
+    connect(&abstractListModel, &AbstractListModel::rowsInserted,
+            this, [this, &abstractListModel, roles](const QModelIndex& /*parent*/, int first, int last) {
+                const QVariantList values{first, abstractListModel.xylitolToVariantList(first, last, roles), QVariant::fromValue(roles)};
+                emit invoked(insertPath, values);
 
-        // Connect new object values
-        connectObjectValues(abstractListModel, first, last, roles);
-    });
-    connect(&abstractListModel, &AbstractListModel::rowsRemoved, this, [this](const QModelIndex& /*parent*/, int first, int last) {
-        const QVariantList values{first, last};
-        emit invoked(removePath, values);
-    });
-    connect(&abstractListModel, &AbstractListModel::rowsMoved, this, [this](const QModelIndex& /*parent*/, int first, int last, const QModelIndex& /*destination*/, int index) {
-        const QVariantList values{first, last, index};
-        emit invoked(movePath, values);
-    });
-    connect(&abstractListModel, &AbstractListModel::modelReset, this, [this, &abstractListModel, roles] {
-        const QVariantList values{abstractListModel.xylitolToVariantList(0, abstractListModel.rowCount() - 1, roles), QVariant::fromValue(roles)};
-        emit invoked(fromJsonPath, values);
+                // Connect new object values
+                connectObjectValues(abstractListModel, first, last, roles);
+            });
+    connect(&abstractListModel, &AbstractListModel::rowsRemoved,
+            this, [this](const QModelIndex& /*parent*/, int first, int last) {
+                const QVariantList values{first, last};
+                emit invoked(removePath, values);
+            });
+    connect(&abstractListModel, &AbstractListModel::rowsMoved,
+            this, [this](const QModelIndex& /*parent*/, int first, int last, const QModelIndex& /*destination*/, int index) {
+                const QVariantList values{first, last, index};
+                emit invoked(movePath, values);
+            });
+    connect(&abstractListModel, &AbstractListModel::modelReset,
+            this, [this, &abstractListModel, roles] {
+                const QVariantList values{abstractListModel.xylitolToVariantList(0, abstractListModel.rowCount() - 1, roles), QVariant::fromValue(roles)};
+                emit invoked(fromJsonPath, values);
 
-        // Connect all object values
-        connectObjectValues(abstractListModel, 0, abstractListModel.rowCount() - 1, roles);
-    });
-    connect(&abstractListModel, &AbstractListModel::dataChanged, this, [this, &abstractListModel, roleNames](const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& roles) {
-        const int first = topLeft.row();
-        const int last = bottomRight.row();
-        const QVariantList roleList = toVariantList(roles.isEmpty() ? abstractListModel.roleNames().keys() : roles.toList());
+                // Connect all object values
+                connectObjectValues(abstractListModel, 0, abstractListModel.rowCount() - 1, roles);
+            });
+    connect(&abstractListModel, &AbstractListModel::dataChanged,
+            this, [this, &abstractListModel, roleNames](const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& roles) {
+                const int first = topLeft.row();
+                const int last = bottomRight.row();
+                const QVariantList roleList = toVariantList(roles.isEmpty() ? abstractListModel.roleNames().keys() : roles.toList());
 
-        const QVariantList values{first, abstractListModel.xylitolToVariantList(first, last, roleList), roleList};
-        emit invoked(setPath, values);
+                const QVariantList values{first, abstractListModel.xylitolToVariantList(first, last, roleList), roleList};
+                emit invoked(setPath, values);
 
-        // Connect new object values
-        connectObjectValues(abstractListModel, first, last, roleList);
-    });
+                // Connect new object values
+                connectObjectValues(abstractListModel, first, last, roleList);
+            });
 
     // Connect all object values
     connectObjectValues(abstractListModel, 0, abstractListModel.rowCount() - 1, roles);
@@ -182,12 +189,14 @@ void ShadowObject::connectModel(const AbstractListModel& abstractListModel) {
 void ShadowObject::connectObjectProperty(const QObject& object, const QString& name) {
     const ShadowObject* shadowObject = new ShadowObject(object, this);
 
-    connect(shadowObject, &ShadowObject::invoked, this, [this, name](const QVariantList& path, const QVariantList& values) {
-        emit invoked(QVariantList{name} + path, values);
-    });
-    connect(shadowObject, &ShadowObject::updated, this, [this, name](const QVariantList& path, const QVariant& value) {
-        emit updated(QVariantList{name} + path, value);
-    });
+    connect(shadowObject, &ShadowObject::invoked,
+            this, [this, name](const QVariantList& path, const QVariantList& values) {
+                emit invoked(QVariantList{name} + path, values);
+            });
+    connect(shadowObject, &ShadowObject::updated,
+            this, [this, name](const QVariantList& path, const QVariant& value) {
+                emit updated(QVariantList{name} + path, value);
+            });
 }
 
 void ShadowObject::connectObjectValues(const AbstractListModel& abstractListModel, int first, int last, const QVariantList& roles) {
@@ -212,14 +221,16 @@ void ShadowObject::connectObjectValue(const AbstractListModel& abstractListModel
     const ShadowObject* shadowObject = new ShadowObject(object, this);
     const QString roleName = QString::fromLatin1(abstractListModel.roleNames().value(role));
 
-    connect(shadowObject, &ShadowObject::invoked, this, [this, &abstractListModel, &object, roleName](const QVariantList& path, const QVariantList& values) {
-        const int index = objectIndex(abstractListModel, object);
-        emit invoked(QVariantList{itemMetaNameTemplate.arg(index).arg(roleName)} + path, values);
-    });
-    connect(shadowObject, &ShadowObject::updated, this, [this, &abstractListModel, &object, roleName](const QVariantList& path, const QVariant& value) {
-        const int index = objectIndex(abstractListModel, object);
-        emit updated(QVariantList{itemMetaNameTemplate.arg(index).arg(roleName)} + path, value);
-    });
+    connect(shadowObject, &ShadowObject::invoked,
+            this, [this, &abstractListModel, &object, roleName](const QVariantList& path, const QVariantList& values) {
+                const int index = objectIndex(abstractListModel, object);
+                emit invoked(QVariantList{itemMetaNameTemplate.arg(index).arg(roleName)} + path, values);
+            });
+    connect(shadowObject, &ShadowObject::updated,
+            this, [this, &abstractListModel, &object, roleName](const QVariantList& path, const QVariant& value) {
+                const int index = objectIndex(abstractListModel, object);
+                emit updated(QVariantList{itemMetaNameTemplate.arg(index).arg(roleName)} + path, value);
+            });
 }
 
 } // namespace Xylitol

@@ -70,8 +70,10 @@ const ListModel::Container listContainer{{{ListModel::RoleInteger, 0},
 const Gadget gadget{1, QLatin1String("A"), 123, jsonObject};
 
 void connectSockets(Xylitol::Socket& socketA, Xylitol::Socket& socketB) {
-    QObject::connect(&socketA, &Xylitol::Socket::send, &socketB, &Xylitol::Socket::receive);
-    QObject::connect(&socketB, &Xylitol::Socket::send, &socketA, &Xylitol::Socket::receive);
+    QObject::connect(&socketA, &Xylitol::Socket::send,
+                     &socketB, &Xylitol::Socket::receive);
+    QObject::connect(&socketB, &Xylitol::Socket::send,
+                     &socketA, &Xylitol::Socket::receive);
 }
 
 void initObject(Object& object) {
