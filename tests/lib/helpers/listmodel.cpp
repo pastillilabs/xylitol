@@ -1,7 +1,7 @@
 #include "listmodel.h"
 #include "object.h"
 
-#include <xylitol/util.h>
+#include <Xylitol/util.h>
 
 ListModel::ListModel(QObject* parent)
     : Xylitol::ListModel(parent) {}

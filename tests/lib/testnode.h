@@ -1,6 +1,6 @@
 #pragma once
 
-#include <xylitol/node.h>
+#include <Xylitol/node.h>
 
 #include <QtTest/QtTest>
 

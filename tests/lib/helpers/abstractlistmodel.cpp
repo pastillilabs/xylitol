@@ -1,7 +1,7 @@
 #include "abstractlistmodel.h"
 
-#include <xylitol/util.h>
-#include <xylitol/templates.h>
+#include <Xylitol/util.h>
+#include <Xylitol/templates.h>
 
 namespace {
 

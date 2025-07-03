@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.27)
 
-project(xylitol-test LANGUAGES CXX)
+set(MODULE_NAME Test)
+
+project(${TARGET_NAME}${MODULE_NAME} VERSION 0.1 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Gui Test)
 
@@ -17,7 +19,7 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE
         Qt${QT_VERSION_MAJOR}::Gui
         Qt${QT_VERSION_MAJOR}::Test
-        xylitol
+        Xylitol
 )
 
 add_test(

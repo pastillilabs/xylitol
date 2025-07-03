@@ -1,6 +1,6 @@
 #pragma once
 
-#include <xylitol/abstractlistmodel.h>
+#include <Xylitol/abstractlistmodel.h>
 
 /**
  * @brief The StringListModel class

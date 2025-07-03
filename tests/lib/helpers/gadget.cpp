@@ -1,6 +1,6 @@
 #include "gadget.h"
 
-#include <xylitol/util.h>
+#include <Xylitol/util.h>
 
 #include <QJsonObject>
 

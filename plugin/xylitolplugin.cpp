@@ -12,7 +12,7 @@ void XylitolPlugin::registerTypes([[maybe_unused]] const char* uri) {
 #if(QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     qRegisterMetaType<Xylitol::AbstractListModel*>();
 
-    // @uri com.pastillilabs.xylitol
+    // @uri Xylitol
 #if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
     qmlRegisterModule(uri, 1, 0);
 #endif

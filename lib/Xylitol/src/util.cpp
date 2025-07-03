@@ -1,5 +1,5 @@
-#include "xylitol/util.h"
-#include "xylitol/logging.h"
+#include "Xylitol/util.h"
+#include "Xylitol/logging.h"
 
 #include "conversions.h"
 

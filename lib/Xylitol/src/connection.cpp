@@ -1,4 +1,4 @@
-#include "xylitol/connection.h"
+#include "Xylitol/connection.h"
 
 namespace Xylitol {
 

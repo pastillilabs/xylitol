@@ -1,6 +1,6 @@
 #pragma once
 
-#include <xylitol/listmodel.h>
+#include <Xylitol/listmodel.h>
 
 #include <QVector>
 

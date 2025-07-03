@@ -1,6 +1,6 @@
 #pragma once
 
-#include <xylitol/util.h>
+#include <Xylitol/util.h>
 
 #include <QMetaType>
 #include <QVariantList>

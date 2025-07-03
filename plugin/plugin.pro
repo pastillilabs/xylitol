@@ -1,4 +1,4 @@
-uri = com.pastillilabs.xylitol
+uri = Xylitol
 
 TEMPLATE = lib
 TARGET = $$qtLibraryTarget(xylitolplugin)

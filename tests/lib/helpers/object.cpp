@@ -1,6 +1,6 @@
 #include "object.h"
 
-#include <xylitol/util.h>
+#include <Xylitol/util.h>
 
 #include <QtTest/QtTest>
 

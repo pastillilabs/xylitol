@@ -1,7 +1,7 @@
 #pragma once
 
-#include <xylitol/abstractlistmodel.h>
-#include <xylitol/xylitol_global.h>
+#include <Xylitol/abstractlistmodel.h>
+#include <Xylitol/xylitol_global.h>
 
 #include <QHash>
 #include <QList>

@@ -1,7 +1,7 @@
-#include "xylitol/listmodel.h"
-#include "xylitol/logging.h"
-#include "xylitol/util.h"
-#include "xylitol/templates.h"
+#include "Xylitol/listmodel.h"
+#include "Xylitol/logging.h"
+#include "Xylitol/util.h"
+#include "Xylitol/templates.h"
 
 #include <QMetaType>
 

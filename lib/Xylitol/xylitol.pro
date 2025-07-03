@@ -1,5 +1,5 @@
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget(xylitol)
+TARGET = $$qtLibraryTarget(Xylitol)
 
 CONFIG += plugin
 greaterThan(QT_MAJOR_VERSION, 5) {
@@ -8,7 +8,7 @@ greaterThan(QT_MAJOR_VERSION, 5) {
 DEFINES += XYLITOL_LIBRARY
 
 greaterThan(QT_MAJOR_VERSION, 5) {
-    QML_IMPORT_NAME = com.pastillilabs.xylitol
+    QML_IMPORT_NAME = Xylitol
     QML_IMPORT_MAJOR_VERSION = 1
 }
 
@@ -17,11 +17,11 @@ DEPENDPATH += $$PWD/include
 
 greaterThan(QT_MAJOR_VERSION, 5) {
     # Needed for moc
-    INCLUDEPATH += $$PWD/include/xylitol
-    DEPENDPATH += $$PWD/include/xylitol
+    INCLUDEPATH += $$PWD/include/Xylitol
+    DEPENDPATH += $$PWD/include/Xylitol
 }
 
-HEADERS += $$files($$PWD/include/xylitol/*.h, true)
+HEADERS += $$files($$PWD/include/Xylitol/*.h, true)
 HEADERS += $$files($$PWD/src/*.h, true)
 SOURCES += $$files($$PWD/src/*.cpp, true)
 

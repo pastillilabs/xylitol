@@ -2,7 +2,7 @@
 
 #include "object.h"
 
-#include <xylitol/abstractlistmodel.h>
+#include <Xylitol/abstractlistmodel.h>
 
 #include <QVector>
 

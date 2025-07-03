@@ -2,19 +2,19 @@ TEMPLATE = subdirs
 
 CONFIG += xylitol_tests
 
-SUBDIRS = lib
+SUBDIRS = lib/Xylitol
 
 lessThan(QT_MAJOR_VERSION, 6) {
     SUBDIRS += plugin
 
-    plugin.depends = lib
+    plugin.depends = lib/Xylitol
 }
 
 xylitol_tests {
     SUBDIRS += \
         tests \
 
-    tests.depends = lib
+    tests.depends = lib/Xylitol
 }
 
 OTHER_FILES += \

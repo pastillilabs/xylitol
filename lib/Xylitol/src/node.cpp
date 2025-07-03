@@ -1,10 +1,10 @@
-#include "xylitol/node.h"
-#include "xylitol/logging.h"
+#include "Xylitol/node.h"
+#include "Xylitol/logging.h"
 
 #include "conversions.h"
 #include "shadowobject.h"
-#include "xylitol/abstractlistmodel.h"
-#include "xylitol/util.h"
+#include "Xylitol/abstractlistmodel.h"
+#include "Xylitol/util.h"
 
 #include <QGenericArgument>
 #include <QMetaProperty>

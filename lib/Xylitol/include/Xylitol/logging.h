@@ -1,6 +1,6 @@
 #pragma once
 
-#include <xylitol/xylitol_global.h>
+#include <Xylitol/xylitol_global.h>
 
 #include <QLoggingCategory>
 

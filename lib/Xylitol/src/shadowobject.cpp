@@ -1,7 +1,7 @@
 #include "shadowobject.h"
 
-#include "xylitol/abstractlistmodel.h"
-#include "xylitol/templates.h"
+#include "Xylitol/abstractlistmodel.h"
+#include "Xylitol/templates.h"
 
 #include <QMetaMethod>
 

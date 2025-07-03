@@ -1,8 +1,8 @@
 #pragma once
 
-#include <xylitol/connection.h>
-#include <xylitol/socket.h>
-#include <xylitol/xylitol_global.h>
+#include <Xylitol/connection.h>
+#include <Xylitol/socket.h>
+#include <Xylitol/xylitol_global.h>
 
 #include <QAbstractListModel>
 #include <QObject>

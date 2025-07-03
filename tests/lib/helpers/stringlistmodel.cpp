@@ -1,6 +1,6 @@
 #include "stringlistmodel.h"
 
-#include <xylitol/templates.h>
+#include <Xylitol/templates.h>
 
 StringListModel::StringListModel(QObject* parent)
     : Xylitol::AbstractListModel(parent) {}

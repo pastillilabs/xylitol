@@ -1,18 +1,19 @@
 cmake_minimum_required(VERSION 3.27)
 
-project(xylitol LANGUAGES CXX)
+project(${TARGET_NAME} VERSION 0.2 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick)
 
 qt_standard_project_setup(
     REQUIRES 6.8
 )
+
 qt_add_library(${PROJECT_NAME})
 
 file(GLOB SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.h include/${PROJECT_NAME}/*.h)
 qt_add_qml_module(${PROJECT_NAME}
     URI
-        ${DOMAIN_NAME}.${COMPANY_NAME}.${PROJECT_NAME}
+        ${PROJECT_NAME}
     VERSION
         1.0
     SOURCES

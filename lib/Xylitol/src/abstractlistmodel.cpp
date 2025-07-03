@@ -1,4 +1,4 @@
-#include "xylitol/abstractlistmodel.h"
+#include "Xylitol/abstractlistmodel.h"
 
 namespace Xylitol {
 

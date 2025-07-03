@@ -1,8 +1,8 @@
 #include "conversions.h"
 
-#include "xylitol/abstractlistmodel.h"
-#include "xylitol/logging.h"
-#include "xylitol/templates.h"
+#include "Xylitol/abstractlistmodel.h"
+#include "Xylitol/logging.h"
+#include "Xylitol/templates.h"
 
 #include <QBitArray>
 #include <QBuffer>

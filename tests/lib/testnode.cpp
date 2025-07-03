@@ -6,7 +6,7 @@
 #include "helpers/rootobject.h"
 #include "helpers/stringlistmodel.h"
 
-#include <xylitol/templates.h>
+#include <Xylitol/templates.h>
 
 // clazy:excludeall=non-pod-global-static
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <xylitol/socket.h>
-#include <xylitol/xylitol_global.h>
+#include <Xylitol/socket.h>
+#include <Xylitol/xylitol_global.h>
 
 #include <QObject>
 #include <QVariantList>
