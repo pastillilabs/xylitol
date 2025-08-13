@@ -10,7 +10,7 @@ This is perhaps somewhat similar to [Qt Remote Objects](https://doc.qt.io/qt-5/q
 
 An important design goal is also that Xylitol and the application model based on it can be directly used from both C++ & QML.
 
-Currently the project is only qmake based and actively used on Qt 5.6 (Sailfish OS) & 5.15 (Android, Linux, Windows). It should compile and work, but is not actively used, also on 6.x. CMake support will follow later.
+Currently the project is tested on cmake only and Qt 6.9.2  (Android, Linux, Windows). It should compile and work, but is not actively used, also on 5.x.
 
 ## Usage
 
