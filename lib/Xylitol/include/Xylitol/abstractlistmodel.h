@@ -6,7 +6,12 @@
 #include <QList>
 #include <QObject>
 #include <QVariantList>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QtQml/qqmlregistration.h>
+#else
+#define QML_ELEMENT
+#define QML_UNCREATABLE(x)
+#endif
 
 namespace Xylitol {
 

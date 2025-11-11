@@ -69,6 +69,8 @@ void invoke(QObject& root, const QVariantList& path, const QVariantList& variant
         const int index = metaObject->indexOfMethod(signature.toLatin1().constData());
         if(index >= 0) {
             const QMetaMethod metaMethod = metaObject->method(index);
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
             const QList<QByteArray> parameterTypes = metaMethod.parameterTypes();
 
             const int valueCount = variantList.count();
@@ -130,6 +132,25 @@ void invoke(QObject& root, const QVariantList& path, const QVariantList& variant
             else {
                 qCWarning(category) << "Parameter count" << metaMethod.parameterCount() << "does not match";
             }
+#else
+            QVariant gv[10];
+            QGenericArgument ga[10];
+
+            const int valueCount = variantList.count();
+            if(valueCount == metaMethod.parameterCount()) {
+                for(int i = 0; i < valueCount; ++i) {
+                    gv[i] = fromVariant(variantList.at(i), metaMethod.parameterType(i));
+                    ga[i] = QGenericArgument(metaMethod.parameterTypes().at(i).constData(), gv[i].constData());
+                }
+            }
+            else {
+                qCWarning(category) << "Invalid amount of arguments for" << signature;
+            }
+
+            if(!metaMethod.invoke(object, ga[0], ga[1], ga[2], ga[3], ga[4], ga[5], ga[6], ga[7], ga[8], ga[9])) {
+                qCWarning(category) << "Failed to invoke" << signature << gv[0] << gv[1] << gv[2] << gv[3] << gv[4] << gv[5] << gv[6] << gv[7] << gv[8] << gv[9];
+            }
+#endif
         }
         else {
             qCWarning(category) << "Method not found" << signature;
