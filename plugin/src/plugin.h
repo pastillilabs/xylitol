@@ -3,9 +3,9 @@
 #include <QQmlExtensionPlugin>
 
 /**
- * @brief The XylitolPlugin class
+ * @brief The Plugin class
  */
-class XylitolPlugin : public QQmlExtensionPlugin {
+class Plugin : public QQmlExtensionPlugin {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
 

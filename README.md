@@ -42,7 +42,7 @@ Especially with list models, the user should make sure that there is only one ma
 
 _Sailfish OS_
 
-Installs libxylitol.so to /usr/share/$${HARBOUR_NAME}/lib where HARBOUR_NAME needs to be defined outside this project.
+Installs libXylitol.so to /usr/share/$${HARBOUR_NAME}/lib where HARBOUR_NAME needs to be defined outside this project.
 
 Uses config value "sailfish" to distinguish between Sailfish OS and other linux environments. This also needs to be provided from outseide.
 

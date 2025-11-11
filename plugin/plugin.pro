@@ -1,55 +1,19 @@
-uri = Xylitol
-
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget(xylitolplugin)
+
+TARGET = $$qtLibraryTarget(Xylitolplugin)
 
 QT += qml quick
 CONFIG += plugin
 
-QML_IMPORT_PATH += $$PWD
+INCLUDEPATH += $$PWD/../lib/Xylitol/include
+DEPENDPATH += $$PWD/../lib/Xylitol/include
 
-INCLUDEPATH += $$PWD/../lib/include
-DEPENDPATH += $$PWD/../lib/include
+HEADERS += $$files($$PWD/src/*.h)
+SOURCES += $$files($$PWD/src/*.cpp)
 
-HEADERS += $$files($$PWD/*.h)
-SOURCES += $$files($$PWD/*.cpp)
+include(platform/platform.pri)
 
-DISTFILES = qmldir
-
-android {
-    DESTDIR = qml/$$replace(uri, \., /)
-
-    LIBS += -L$$OUT_PWD/../lib -lxylitol_$${QT_ARCH}
-}
-
-sailfish {
-    DESTDIR = qml/$$replace(uri, \., /)
-
-    LIBS += -L$$OUT_PWD/../lib -lxylitol
-    QMAKE_LFLAGS += -Wl,-rpath,../../../..:$$OUT_PWD/../lib
-
-    qmldir.files = qmldir
-    qmldir.path = /usr/share/$${HARBOUR_NAME}/$${DESTDIR}
-    target.path = /usr/share/$${HARBOUR_NAME}/$${DESTDIR}
-    INSTALLS += qmldir target
-}
-
-linux:!android:!sailfish {
-    DESTDIR = qml/$$replace(uri, \., /)
-
-    LIBS += -L$$OUT_PWD/../lib -lxylitol
-    QMAKE_LFLAGS += -Wl,-rpath,../../../..:$$OUT_PWD/../lib
-}
-
-win32 {
-    CONFIG(debug, debug|release) {
-        DESTDIR = debug/qml/$$replace(uri, \., /)
-
-        LIBS += -L$$OUT_PWD/../lib/debug -lxylitold
-    }
-    CONFIG(release, debug|release) {
-        DESTDIR = release/qml/$$replace(uri, \., /)
-
-        LIBS += -L$$OUT_PWD/../lib/release -lxylitol
-    }
-}
+# Copy qml to output directory
+copy_qml.files =  $$PWD/../lib/Xylitol/qmldir
+copy_qml.path = $$DESTDIR
+COPIES += copy_qml

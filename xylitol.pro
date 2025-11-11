@@ -3,12 +3,9 @@ TEMPLATE = subdirs
 CONFIG += xylitol_tests
 
 SUBDIRS = lib/Xylitol
+SUBDIRS += plugin
 
-lessThan(QT_MAJOR_VERSION, 6) {
-    SUBDIRS += plugin
-
-    plugin.depends = lib/Xylitol
-}
+plugin.depends = lib/Xylitol
 
 xylitol_tests {
     SUBDIRS += \
@@ -19,6 +16,7 @@ xylitol_tests {
 
 OTHER_FILES += \
     .gitignore \
+    CMakeLists.txt \
     AUTHORS \
     LICENSE \
     README.md \

@@ -9,7 +9,11 @@
 #include <QVariant>
 #include <QVariantList>
 #include <QVector>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QtQml/qqmlregistration.h>
+#else
+#define QML_ELEMENT
+#endif
 
 namespace Xylitol {
 
@@ -21,7 +25,11 @@ class ShadowObject;
 class XYLITOL_SHARED_EXPORT Node : public QAbstractListModel {
     Q_OBJECT
     QML_ELEMENT
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     Q_PROPERTY(QObject* target READ target WRITE setTarget NOTIFY targetChanged REQUIRED)
+#else
+    Q_PROPERTY(QObject* target READ target WRITE setTarget NOTIFY targetChanged)
+#endif
     Q_PROPERTY(bool initialized READ isInitialized NOTIFY initializedChanged)
     Q_PROPERTY(Connection* parentConnection READ parentConnection NOTIFY parentConnectionChanged)
     Q_PROPERTY(Connection* activeConnection READ activeConnection NOTIFY activeConnectionChanged)
