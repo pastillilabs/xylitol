@@ -1,5 +1,5 @@
 #include "testnode.h"
 
-#include <QtTest/QtTest>
+#include <qtest.h>
 
 QTEST_MAIN(TestNode)

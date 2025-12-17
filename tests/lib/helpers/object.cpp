@@ -2,7 +2,7 @@
 
 #include <Xylitol/util.h>
 
-#include <QtTest/QtTest>
+#include <qtestcase.h>
 
 Object::Object(QObject* parent)
     : QObject(parent) {}

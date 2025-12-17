@@ -2,8 +2,6 @@
 
 #include <Xylitol/node.h>
 
-#include <QtTest/QtTest>
-
 /**
  * @brief The TestNode class
  */

@@ -8,6 +8,9 @@
 
 #include <Xylitol/templates.h>
 
+#include <QSignalSpy>
+#include <qtestcase.h>
+
 // clazy:excludeall=non-pod-global-static
 
 namespace {

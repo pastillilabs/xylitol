@@ -34,7 +34,7 @@ public:
     void setPath(const QVariantList& path);
 
 signals:
-    void actionChanged(Socket::Action action);
+    void actionChanged(Xylitol::Socket::Action action);
     void pathChanged(const QVariantList& path);
 
 private:
