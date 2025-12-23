@@ -1,6 +1,6 @@
 module Xylitol
-linktarget XylitolPlugin
-optional plugin XylitolPlugin
+linktarget Xylitolplugin
+optional plugin Xylitolplugin
 classname Plugin
 prefer :/qt/qml/Xylitol/
 depends QtQuick

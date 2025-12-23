@@ -20,6 +20,4 @@ HEADERS += $$files($$PWD/include/Xylitol/*.h)
 HEADERS += $$files($$PWD/src/*.h)
 SOURCES += $$files($$PWD/src/*.cpp)
 
-DISTFILES = $$PWD/qmldir
-
 include(platform/platform.pri)

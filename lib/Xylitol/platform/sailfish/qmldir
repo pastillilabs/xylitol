@@ -1,0 +1,5 @@
+module Xylitol
+linktarget Xylitolplugin
+plugin Xylitolplugin
+classname Plugin
+depends QtQuick 2.0
